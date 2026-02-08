@@ -60,7 +60,7 @@ class IntegerFieldTests(FieldTests):
         else:
             last = 4
         
-        for i in xrange(first, last + 1):
+        for i in range(first, last + 1):
             obs.i = i
             self.assertEqual(obs.i, i)
             

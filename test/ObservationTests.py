@@ -170,7 +170,7 @@ class ObservationTests(TestCase):
         self.assertIsInstance(b, P)
         self.assertEqual(b.x, 'bobo')
         self.assertEqual(b.y, 1)
-        self.assert_(not a is b)
+        self.assertTrue(a is not b)
         self.assertEqual(a, b)
         
         

@@ -72,7 +72,7 @@ class SimpleCommandInterpreter(object):
         
         try:
             tokens = TokenUtils.tokenizeString(command)
-        except ValueError, e:
+        except ValueError as e:
             raise CommandInterpreterError('Could not parse command. {:s}'.format(str(e)))
         
         if len(tokens) == 0:

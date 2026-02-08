@@ -29,8 +29,8 @@ class EditHistoryTests(TestCase):
     
     def setUp(self):
         self._history = EditHistory()
-        self._nums = range(4)
-        self._assertState(None, None, range(4))
+        self._nums = list(range(4))
+        self._assertState(None, None, list(range(4)))
         
         
     def _assertState(self, undoName, redoName, nums):
@@ -48,7 +48,7 @@ class EditHistoryTests(TestCase):
         self._assertState('one', None, [0, 21, 2, 3])
         
         h.undo()
-        self._assertState(None, 'one', range(4))
+        self._assertState(None, 'one', list(range(4)))
         
         h.redo()
         self._assertState('one', None, [0, 21, 2, 3])

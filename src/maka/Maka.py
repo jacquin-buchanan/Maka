@@ -1,7 +1,7 @@
 '''Maka application.'''
 
 
-from PySide.QtGui import QApplication
+from PySide6.QtWidgets import QApplication
 import os
 import sys
     
@@ -21,7 +21,7 @@ def _main():
     window.raise_()
     window.activateWindow()
     
-    app.exec_()
+    app.exec()
     
     sys.exit()
 

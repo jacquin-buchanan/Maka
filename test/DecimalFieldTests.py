@@ -114,7 +114,7 @@ class DecimalFieldTests(FieldTests):
         self.assertEqual(obs.v, endStr)
          
         n = 10
-        for i in xrange(n):
+        for i in range(n):
             v = str(start + (end - start) / float(n - 1) * i)
             obs.v = v
             self.assertEqual(obs.v, v)

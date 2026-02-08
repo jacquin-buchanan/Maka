@@ -122,7 +122,7 @@ def main():
                 
                 try:
                     document = fileFormat.readDocument(filePath)
-                except ValueError, e:
+                except ValueError as e:
                     try:
                         getattr(e, 'line_num')
                     except AttributeError:

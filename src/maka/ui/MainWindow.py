@@ -5,11 +5,12 @@ from __future__ import print_function
 
 import os.path
 
-from PySide.QtCore import SIGNAL
-from PySide.QtGui import (
-    QAbstractItemView, QAction, QApplication, QDialog, QFileDialog, QHBoxLayout,
-    QItemSelection, QItemSelectionModel, QLabel, QLineEdit, QListWidget, QMainWindow,
+from PySide6.QtCore import Qt, QItemSelectionModel
+from PySide6.QtWidgets import (
+    QAbstractItemView, QApplication, QDialog, QFileDialog, QHBoxLayout,
+    QLabel, QLineEdit, QListWidget, QMainWindow,
     QMenuBar, QMessageBox, QVBoxLayout, QWidget)
+from PySide6.QtGui import QAction
 
 from maka.command.CommandInterpreterError import CommandInterpreterError
 from maka.data.Document import Document
@@ -237,8 +238,7 @@ class MainWindow(QMainWindow):
         obsList.setAlternatingRowColors(True)
         obsList.setSelectionMode(QAbstractItemView.ContiguousSelection)
         
-        signal = SIGNAL('itemDoubleClicked(QListWidgetItem *)')
-        self.connect(obsList, signal, self._onItemDoubleClick)
+        obsList.itemDoubleClicked.connect(self._onItemDoubleClick)
     
         self._obsList = obsList
         
@@ -300,7 +300,7 @@ class MainWindow(QMainWindow):
         # Get index of observation we want at the top of the list after the deletion.
         scrollIndex = self._getPostDeletionScrollIndex(startIndex, endIndex)
         
-        for _ in xrange(endIndex - startIndex):
+        for _ in range(endIndex - startIndex):
             self._obsList.takeItem(startIndex)
             
         # Scroll so desired observation is at the top of the list.
@@ -334,7 +334,7 @@ class MainWindow(QMainWindow):
         format = doc.documentFormat
         obses = doc.observations
         endIndex = startIndex + numObservations
-        labels = [format.formatObservation(obses[i]) for i in xrange(startIndex, endIndex)]
+        labels = [format.formatObservation(obses[i]) for i in range(startIndex, endIndex)]
         self._obsList.insertItems(startIndex, labels)
             
 
@@ -476,7 +476,7 @@ class MainWindow(QMainWindow):
             # TODO: Improve error messages, e.g. to include line numbers.
             doc = DocumentFileFormat.readDocument(filePath)
             
-        except Exception, e:
+        except Exception as e:
             message = 'File open failed.\n\n' + str(e)
             QMessageBox.critical(self, '', message)
             
@@ -502,7 +502,7 @@ class MainWindow(QMainWindow):
         try:
             doc.fileFormat.writeDocument(doc, filePath, doc.documentFormat)
             
-        except Exception, e:
+        except Exception as e:
             message = 'File save failed.\n\n' + str(e)
             QMessageBox.critical(self, '', message)
             return False
@@ -586,7 +586,7 @@ class MainWindow(QMainWindow):
         try:
             lines = text.strip().splitlines()
             return docFormat.parseDocument(lines)
-        except ValueError, e:
+        except ValueError as e:
             self._handleEditError(
                 'Paste',
                 'Attempt to parse clipboard text yielded the following error message:\n\n' + str(e))

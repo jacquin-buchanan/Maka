@@ -96,7 +96,7 @@ class FloatFieldTests(FieldTests):
         self.assertEqual(obs.v, end)
         
         n = 10
-        for i in xrange(n):
+        for i in range(n):
             v = start + (end - start) / float(n - 1) * i
             obs.v = v
             self.assertEqual(obs.v, v)

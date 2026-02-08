@@ -150,4 +150,4 @@ def _checkEditIndex(index, maxIndex, name):
         
 
 def _copy(observations, startIndex, endIndex):
-    return tuple(observations[i].copy() for i in xrange(startIndex, endIndex))
+    return tuple(observations[i].copy() for i in range(startIndex, endIndex))

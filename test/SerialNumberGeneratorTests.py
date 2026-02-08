@@ -12,7 +12,7 @@ class SerialNumberGeneratorTests(TestCase):
         
         
     def _test(self, generator, firstNumber):
-        for i in xrange(10):
+        for i in range(10):
             self.assertEqual(generator.nextNumber, firstNumber + i)
             
             

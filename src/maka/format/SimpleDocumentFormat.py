@@ -431,7 +431,7 @@ class SimpleObservationFormat(ObservationFormat):
     def _parseToken(self, token, item, name):
         try:
             return (name, item.parse(token))
-        except ValueError, e:
+        except ValueError as e:
             raise ValueError('For observation field "{:s}": {:s}'.format(name, str(e)))
     
     
@@ -453,14 +453,14 @@ class is used to format the named observation field, and each literal is include
 
 def _parseObsFormatString(formatString, obsClass, fieldFormats):
     
-    try:
-        items = [_parseObsFormatItem(item, obsClass, fieldFormats)
-                 for item in formatString.split()]
-        
-    except ValueError, e:
-        raise ValueError(
-            'Error parsing item "{:s}" of observation format "{:s}": {:s}'.format(
-                item, formatString, str(e)))
+    items = []
+    for item in formatString.split():
+        try:
+            items.append(_parseObsFormatItem(item, obsClass, fieldFormats))
+        except ValueError as e:
+            raise ValueError(
+                'Error parsing item "{:s}" of observation format "{:s}": {:s}'.format(
+                    item, formatString, str(e)))
     
     keyIndices = [
         i for i, (_, item) in enumerate(items) if isinstance(item, Literal) and item.isKey]
@@ -561,16 +561,16 @@ class SimpleDocumentFormat(DocumentFormat):
         self._obsFormatsByName = dict(
             (className,
              _createObsFormat(className, obsClasses, formatString, self.fieldFormats))
-            for className, formatString in self.observationFormats.iteritems())
+            for className, formatString in self.observationFormats.items())
         
         # Create list of (keyIndex, keys) pairs and map from keys to observation formats.
         keySets = defaultdict(set)
         obsFormats = {}
-        for f in self._obsFormatsByName.itervalues():
+        for f in self._obsFormatsByName.values():
             key = f._items[f._keyIndex][1].text
             keySets[f._keyIndex].add(key)
             obsFormats[key] = f
-        self._keySets = [(keyIndex, frozenset(keys)) for keyIndex, keys in keySets.iteritems()]
+        self._keySets = [(keyIndex, frozenset(keys)) for keyIndex, keys in keySets.items()]
         self._keySets.sort(key=lambda x: len(x[1]), reverse=False)
         self._obsFormatsByKey = obsFormats
         
@@ -590,7 +590,7 @@ class SimpleDocumentFormat(DocumentFormat):
                 
                 try:
                     observations.append(self._parseObs(line))
-                except ValueError, e:
+                except ValueError as e:
                     e.lineNum = lineNum + 1
                     raise
                 

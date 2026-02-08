@@ -59,4 +59,4 @@ def getExtension(typeName, extensionName):
 
 def getExtensions(typeName):
     _initializeIfNeeded()
-    return frozenset(_extensions.get(typeName, {}).itervalues())
+    return frozenset(_extensions.get(typeName, {}).values())

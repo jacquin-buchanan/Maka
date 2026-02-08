@@ -24,7 +24,7 @@ Harold Mills
 
 import sys
 
-from PySide.QtGui import (
+from PySide6.QtWidgets import (
     QAbstractItemView, QApplication, QListWidget, QMainWindow,
     QPushButton, QVBoxLayout, QWidget)
  
@@ -39,7 +39,7 @@ class TestWindow(QMainWindow):
         self.setWindowTitle('PySide QListWidget Problem')
         
         self._list = QListWidget(self)
-        self._list.insertItems(0, [str(i + 1) for i in xrange(50)])
+        self._list.insertItems(0, [str(i + 1) for i in range(50)])
         
         # This line seems to be the problem. Change "Contiguous" to "Single"
         # and item deletion does not cause the list to scroll to the top.
@@ -72,7 +72,7 @@ def _main():
     window.show()
     window.raise_()
     
-    app.exec_()
+    app.exec()
     
     sys.exit()
 

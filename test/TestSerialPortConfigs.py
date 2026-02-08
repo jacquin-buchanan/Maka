@@ -35,11 +35,11 @@ def _main():
                     try:
                         _testConfig(baudRate, numDataBits, parity, numStopBits)
                     
-                    except ReadSucceeded, e:
+                    except ReadSucceeded as e:
                         print('Read yielded "{:s}".'.format(str(e)))
                         sys.exit()
                         
-                    except Exception, e:
+                    except Exception as e:
                         print('Got {:s} with message: {:s}', e.__class__.__name__, str(e))
                         pass
                     

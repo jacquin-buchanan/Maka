@@ -46,6 +46,11 @@ class SerialPort(object):
     
         self._exceptionClass = exceptionClass
         
+        # Validate parameters before passing to Serial constructor
+        baudRate = _validateBaudRate(baudRate)
+        readTimeout = _validateTimeout(readTimeout, 'read')
+        writeTimeout = _validateTimeout(writeTimeout, 'write')
+        
         byteSize = _getByteSize(numDataBits)
         parity = _getParity(parity)
         stopBits = _getStopBits(numStopBits)
@@ -212,3 +217,40 @@ def _getStopBits(numStopBits):
         raise ValueError(
             'Unrecognized number of serial communication stop bits. '
             'Number must be ' + _formatList(_STOP_BITS_KEYS) + '.')
+
+
+def _validateBaudRate(baudRate):
+    '''Validates and returns the baud rate.'''
+    
+    if not isinstance(baudRate, int):
+        try:
+            baudRate = int(baudRate)
+        except (ValueError, TypeError):
+            raise ValueError(
+                'invalid literal for int() with base 10: {!r}'.format(baudRate))
+    
+    if baudRate <= 0:
+        raise ValueError(
+            'Not a valid baudrate: {:d}'.format(baudRate))
+    
+    return baudRate
+
+
+def _validateTimeout(timeout, timeoutType):
+    '''Validates and returns a timeout value (read or write).'''
+    
+    if timeout is None:
+        return None
+    
+    if not isinstance(timeout, (int, float)):
+        try:
+            timeout = float(timeout)
+        except (ValueError, TypeError):
+            raise ValueError(
+                'Not a valid timeout: {!r}'.format(timeout))
+    
+    if timeout < 0:
+        raise ValueError(
+            'Not a valid timeout: {:g}'.format(timeout))
+    
+    return timeout

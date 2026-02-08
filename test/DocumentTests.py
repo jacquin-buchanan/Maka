@@ -74,7 +74,7 @@ class DocumentTests(TestCase):
     def _assertObservations(self, ints):
         obses = self.document.observations
         self.assertEqual(len(obses), len(ints))
-        for i in xrange(len(ints)):
+        for i in range(len(ints)):
             self.assertEqual(obses[i].x, ints[i])
         
         

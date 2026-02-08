@@ -374,7 +374,7 @@ class FormatTests(TestCase):
         
         for s, d in cases:
             obs = f.parseObservation(s)
-            for k, v in d.iteritems():
+            for k, v in d.items():
                 self.assertEqual(getattr(obs, k), v)
                 
                 

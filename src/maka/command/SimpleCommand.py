@@ -128,7 +128,7 @@ class SimpleCommand(object):
         
         fieldValues = dict(self._parseArg(arg, i) for i, arg in enumerate(args))
         
-        for key, value in self._defaultFieldValues.iteritems():
+        for key, value in self._defaultFieldValues.items():
             
             if isinstance(key, tuple):
                 # key is tuple of field names
@@ -167,7 +167,7 @@ class SimpleCommand(object):
         try:
             value = fieldFormat.parse(arg)
             
-        except ValueError, e:
+        except ValueError as e:
             raise CommandInterpreterError(
                 'Could not parse "{:s}" argument for command "{:s}". {:s}'.format(
                     fieldName, self.name, str(e)))

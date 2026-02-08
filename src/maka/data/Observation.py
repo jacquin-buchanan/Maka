@@ -112,8 +112,7 @@ class _Metaclass(type):
         fields = _accumulateParentFields(parents)
         fields.update(_getNewFields(attrs))
         
-        names = fields.keys()
-        names.sort()
+        names = sorted(fields.keys())
         attrs[FIELDS_ATTRIBUTE_NAME] = [fields[name] for name in names]
             
         return type.__new__(cls, typeName, parents, attrs)
@@ -156,7 +155,7 @@ def _getNewFields(attrs):
                 
     fields = {}
     
-    for name, obj in attrs.iteritems():
+    for name, obj in attrs.items():
         
         # TODO: Is it really best to allow field classes as well as instances in
         # observation class definitions? It's a little more concise, but it is also
@@ -178,13 +177,10 @@ def _getNewFields(attrs):
     return fields
 
 
-class Observation(object):
+class Observation(object, metaclass=_Metaclass):
         
         
     '''Superclass of all observation classes.'''
-    
-    
-    __metaclass__ = _Metaclass
     
     
     def __init__(self, **kwds):

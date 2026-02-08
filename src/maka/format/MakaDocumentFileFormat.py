@@ -49,7 +49,7 @@ class MakaDocumentFileFormat(DocumentFileFormat):
         
         try:
             observations = docFormat.parseDocument(lines, lineNum)
-        except ValueError, e:
+        except ValueError as e:
             e.filePath = filePath
             raise
             

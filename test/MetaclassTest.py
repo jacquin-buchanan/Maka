@@ -7,7 +7,7 @@ class M(type):
     def __new__(cls, name, bases, attrs):
         
         xs = {}
-        for name, value in attrs.iteritems():
+        for name, value in attrs.items():
             if isinstance(value, X):
                 xs[name] = value
                 attrs[name] = value.x
@@ -17,8 +17,8 @@ class M(type):
         return type.__new__(cls, name, bases, attrs)
 
 
-class A(object):
-    __metaclass__ = M
+class A(object, metaclass=M):
+    pass
         
     
 class B(A):

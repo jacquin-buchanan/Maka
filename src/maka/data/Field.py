@@ -204,8 +204,7 @@ class String(Field):
     TRANSLATIONS = None
     
     
-    # TODO: Fix this for Python 3.
-    _valueClasses = (str, unicode)
+    _valueClasses = (str,)
     
     
     def __init__(self, **kwds):
@@ -239,7 +238,7 @@ class String(Field):
     def _initTranslations(self, translations):
         
         if translations is not None:
-            for value in translations.itervalues():
+            for value in translations.values():
                 self._rangeCheck(value, 'translation')
                 
         self._translations = translations
@@ -491,8 +490,7 @@ class Decimal(Field):
     MAX_INCLUSIVE = True
 
     
-    # TODO: Fix this for Python 3.
-    _valueClasses = (str, unicode)
+    _valueClasses = (str,)
     
     
     def __init__(self, **kwds):
