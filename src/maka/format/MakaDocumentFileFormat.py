@@ -104,7 +104,7 @@ def _openTextFile(filePath):
     # We open the file with universal newlines support so that we will correctly
     # recognize lines whether they are terminated with '\n' (the Unix convention),
     # '\r' (the old Macintosh convention), or '\r\n' (the Windows convention).
-    return open(filePath, 'U')  
+    return open(filePath, 'r')  
 
 
 def _raiseFileFormatError(prefix, lineNum, filePath):
